@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="application.scss">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <% if @user.errors.any? %>
+          <div class="error_explanation">
+          <h4><%= pluralize(@user.errors.count, "error") %> prohibited this book from being saved:</h4>
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+        <div class="col-xs-3">
+          <h2>User info</h2>
+          <%= form_for(@user, url: { controller: :users, action: :edit }) do |f| %>
+
+          <p><strong>Name</strong>
+          <%= f.text_field :name %></p>
+
+          <p><strong>Image</strong>
+          <%= f.attachment_field :profile_image, placeholder: "プロフィール画像" %></p>
+
+          <p><strong>Introduction</strong>
+          <%= f.text_area :introduction %></p>
+
+          <%= f.submit 'Update User' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

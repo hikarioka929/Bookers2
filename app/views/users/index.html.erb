@@ -1,0 +1,82 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="application.scss">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <% if @book.errors.any? %>
+          <div class="error_explanation">
+          <h4><%= pluralize(@book.errors.count, "error") %> prohibited this book from being saved:</h4>
+          <ul>
+            <% @book.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+        <div class="col-xs-3">
+          <h2>User info</h2>
+          <%= attachment_image_tag @user, :profile_image,　format: 'jpg', fallback: "no_image.jpg", size: "100x100" %>
+          <table class="table">
+  <tbody>
+    <tr>
+        <th>name</th>
+        <th><%= @user.name %></th>
+    </tr>
+    <tr>
+        <th>introduction</th>
+        <th><%= @user.introduction %></th>
+    </tr>
+  </tbody>
+</table>
+  <%= link_to edit_user_path(current_user) do %>
+    <i class="btn btn-default glyphicon glyphicon-wrench edit_user_6144" >
+    </i>
+  <% end %>
+
+          <h2>New book</h2>
+          <%= form_for(@book, url: '/books') do |f| %>
+
+          <p><strong>Title</strong></p>
+          <%= f.text_field :title, class: "field" %>
+
+          <p><strong>Opinion</strong></p>
+          <%= f.text_area :body, class: "field" %>
+
+          <p><%= f.submit 'Create Book', class: "create-btn btn-primary" %></p>
+          <% end %>
+        </div>
+        <div class= "col-xs-9">
+          <h2>Users</h2>
+          <table class="table">
+            <thead>
+            <tr>
+              <th>image</th>
+              <th>name</th>
+              <th></th>
+              <th colspan="3"></th>
+            </tr>
+            </thead>
+            <tbody>
+              <% @users.each do |user| %>
+                <tr>
+                  <td>
+                    <a><%= attachment_image_tag user, :profile_image, class: "img-circle pull-left profile-thumb", fallback: "no_image.jpg", size: "40x40" %></a>
+                  </td>
+                  <td>
+                    <%= user.name %>
+                  </td>
+                  <td>
+                    <%= link_to "Show", user_path(user.id) %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body> 
+</html>

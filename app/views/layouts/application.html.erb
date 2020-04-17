@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookers2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header class="navbar navbar-inverse">
+    <div class="container">
+      <nav class='nav navbar-nav navbar-left' >
+        <div class="header-logo">Bookers</div>
+      </nav>
+      <nav>
+        <ul class="nav navbar-nav navbar-right">
+            <% if user_signed_in? %>
+              <li><%= link_to "Home", user_path(current_user.id), class: "glyphicon glyphicon-home" %></li>
+              <li><a href="/users"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Users</a></li>
+              <li><a href="/books"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>Books</a></li>
+              <li><%= link_to "logout", destroy_user_session_path, method: :delete, class: "glyphicon glyphicon-log-out" %></li>
+            <% else %>
+              <li><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+              <li><a href="/home/about"><span class="glyphicon glyphicon-link" aria-hidden="true"></span>About</a></li>
+              <li><a href="/users/sign_up"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>sign up</a></li>
+              <li><a href="/users/sign_in"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>login</a></li>
+            <% end %>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+    <% flash.each do |key, value| %>
+    <%= content_tag(:div, value, class: "#{key}") %>
+  <% end %>
+
+    <%= yield %>
+
+    <footer>
+      <p class="footer_logo">CopyRight Infratop.inc</p>
+    </footer>
+    </div>
+  </body>
+</html>
